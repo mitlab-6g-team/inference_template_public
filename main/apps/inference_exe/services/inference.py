@@ -57,7 +57,6 @@ class InferenceService:
     def load_model():
         if InferenceService.model is None:
             model_path = default_env.MODEL_SAVE_PATH + default_env.MODEL_FILE_NAME
-            print('model_path:', model_path)
             InferenceService.model = Model(model_path)
         return InferenceService.model
 

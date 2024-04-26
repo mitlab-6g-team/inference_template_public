@@ -8,7 +8,6 @@ from main.utils.logger import log_trigger, log_writer
 from main.apps.inference_exe.services.inference import InferenceService
 from main.apps.inference_exe.services.kafka import publish
 
-
 @require_POST
 @log_trigger("INFO")
 def get_inference_result(request):
@@ -17,35 +16,28 @@ def get_inference_result(request):
     publishing both raw data and the inference result to Kafka topics. This function is responsible for
     generating new inference result based on the provided input value.
     """
+    
     request_data = json.loads(request.body.decode('utf-8'))
     # send raw data to kafka in Agent Layer
     payload = {
         "position_uid": f"{request_data['position_uid']}",
         "packet_uid": f"{request_data['packet_uid']}",
-        "inference_client_uid": f"{request_data['inference_client_uid']}",
+        "inference_client_name": f"{request_data['inference_client_name']}",
         "value": f"{request_data['value']}"
     }
-    publish(
-        'raw_data', f"""applications.{request_data['application_uid']}""", 'raw_data_add', payload)
-
-    log_writer('ACT', get_inference_result, (request,),
-               message="check inference result table from redis server")
-    print('check inference result table from redis server')
+    publish(f"applications.{request_data['application_uid']}", 'raw_data_add', payload)
 
     # generate inference
     inference_result = InferenceService.inference(request_data['value'])
     if inference_result['status'] == "success":
-        log_writer('ACT', get_inference_result, (request,),
-                   message="save inference result to result table")
-        print('save inference result to result table')
+        
         payload = {
             "position_uid": f"{request_data['position_uid']}",
             "packet_uid": f"{request_data['packet_uid']}",
-            "inference_client_uid": f"{request_data['inference_client_uid']}",
+            "inference_client_name": f"{request_data['inference_client_name']}",
             "value": inference_result['data']
         }
-        publish('inference_result',
-                f"""applications.{request_data['application_uid']}""", 'inference_result_add', payload)
+        publish(f"applications.{request_data['application_uid']}", 'inference_result_add', payload)
         return JsonResponse(inference_result)
     else:
         print(inference_result)

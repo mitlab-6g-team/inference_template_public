@@ -6,7 +6,7 @@ import json
 from confluent_kafka import Producer, KafkaError, KafkaException
 from main.utils.env_loader import default_env
 
-def publish(prefix_error_response_str, topic_name_str, status_str, message):
+def publish(topic_name_str, status_str, message):
     """ Publish the message to the topic in the form of key and value.
     Arguments:
         topic_name_str (string): name of the topic
@@ -14,12 +14,15 @@ def publish(prefix_error_response_str, topic_name_str, status_str, message):
         message (dictionary or str): the value of the message in the topic
         prefix_error_response_str (string): prefix of the error response
     """
+    enable = default_env.KAFKA_ENABLE
+    if(not enable): return 0
     kafka_ip_str = default_env.HTTP_KAFKA_HOST
     kafka_port1_str = default_env.HTTP_KAFKA_PORT1
     kafka_port2_str = default_env.HTTP_KAFKA_PORT2
     kafka_port3_str = default_env.HTTP_KAFKA_PORT3
     kafka_servers_str = f'{kafka_ip_str}:{kafka_port1_str}, {kafka_ip_str}:{kafka_port2_str}, {kafka_ip_str}:{kafka_port3_str}'
 
+    prefix_error_response_str = status_str
     response_str = "success"
     status_code_int = 200
 
