@@ -14,7 +14,7 @@ def publish(topic_name_str, status_str, message):
         message (dictionary or str): the value of the message in the topic
         prefix_error_response_str (string): prefix of the error response
     """
-    enable = default_env.KAFKA_ENABLE
+    enable = eval(default_env.KAFKA_ENABLE)
     if(not enable): return 0
     kafka_ip_str = default_env.HTTP_KAFKA_HOST
     kafka_port1_str = default_env.HTTP_KAFKA_PORT1
