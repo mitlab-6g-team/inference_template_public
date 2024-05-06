@@ -61,9 +61,13 @@ class InferenceService:
         return InferenceService.model
 
     @staticmethod
-    def input_data_transform(input_data):
-        _, model_input_dtype = InferenceService.model.get_input_format()
-        return np.array(input_data).astype(model_input_dtype)
+    def input_data_transform(input_data, is_multi_input=False):
+        if is_multi_input:
+            keys_order = sorted(input_data.keys(), key=lambda x: int(x.replace('input', '')))
+            transformed_data = [np.array(input_data[key]).astype(InferenceService.model.get_input_format()[1]) for key in keys_order]
+        else:
+            transformed_data = np.array(input_data).astype(InferenceService.model.get_input_format()[1])
+        return transformed_data
 
     @staticmethod
     def get_model_info():
@@ -71,9 +75,9 @@ class InferenceService:
         return model_info
 
     @staticmethod
-    def inference(input_data):
+    def inference(input_data, is_multi_input=False):
         try:
-            transform_data = InferenceService.input_data_transform(input_data)
+            transform_data = InferenceService.input_data_transform(input_data, is_multi_input)
             inference_result = InferenceService.model.inference(transform_data)
             return {"status": "success", "data": str(inference_result.tolist())}
 

@@ -18,6 +18,8 @@ def get_inference_result(request):
     """
     
     request_data = json.loads(request.body.decode('utf-8'))
+    is_multi_input = request_data.get('multi_input', False)
+
     # send raw data to kafka in Agent Layer
     payload = {
         "position_uid": f"{request_data['position_uid']}",
@@ -28,7 +30,7 @@ def get_inference_result(request):
     publish(f"applications.{request_data['application_uid']}", 'raw_data_add', payload)
 
     # generate inference
-    inference_result = InferenceService.inference(request_data['value'])
+    inference_result = InferenceService.inference(request_data['value'], is_multi_input)
     if inference_result['status'] == "success":
         
         payload = {

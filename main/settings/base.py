@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = default_env.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = default_env.DEBUG
+DEBUG = eval(default_env.DEBUG)
 
 ALLOWED_HOSTS = [default_env.ALLOWED_HOSTS]
 
