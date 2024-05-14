@@ -66,7 +66,7 @@ class InferenceService:
             keys_order = sorted(input_data.keys(), key=lambda x: int(x.replace('input', '')))
             transformed_data = [np.array(input_data[key]).astype(InferenceService.model.get_input_format()[1]) for key in keys_order]
         else:
-            transformed_data = np.array(input_data).astype(InferenceService.model.get_input_format()[1])
+            transformed_data = np.array(input_data["input1"]).astype(InferenceService.model.get_input_format()[1])
         return transformed_data
 
     @staticmethod
