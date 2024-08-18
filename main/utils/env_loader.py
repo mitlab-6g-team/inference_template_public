@@ -21,11 +21,7 @@ class Default:
     API_VERSION:str
     MODEL_SAVE_PATH:str
     MODEL_FILE_NAME:str
-    HTTP_KAFKA_HOST:str
-    HTTP_KAFKA_PORT1:str
-    HTTP_KAFKA_PORT2:str
-    HTTP_KAFKA_PORT3:str
-    KAFKA_ENABLE:bool
+    
 
 
 default_env = Default(
@@ -37,10 +33,25 @@ default_env = Default(
     API_ROOT=os.environ.get('API_ROOT'),
     API_VERSION=os.environ.get('API_VERSION'),
     MODEL_SAVE_PATH=os.environ.get('MODEL_SAVE_PATH'),
-    MODEL_FILE_NAME=os.environ.get('MODEL_FILE_NAME'),
-    HTTP_KAFKA_HOST=os.environ.get('HTTP_KAFKA_HOST'),
-    HTTP_KAFKA_PORT1=os.environ.get('HTTP_KAFKA_PORT1'),
-    HTTP_KAFKA_PORT2=os.environ.get('HTTP_KAFKA_PORT2'),
-    HTTP_KAFKA_PORT3=os.environ.get('HTTP_KAFKA_PORT3'),
-    KAFKA_ENABLE=os.environ.get('KAFKA_ENABLE')
+    MODEL_FILE_NAME=os.environ.get('MODEL_FILE_NAME')
 )
+
+@dataclass
+class Customized:
+    """
+        load default env - customized
+    """
+    DEPLOYMENT_PLATFORM_HOST:str
+    SELF_CHECK_FUNCTION: bool
+    DEPLOYMENT_PLATFORM_VERSION: str
+    POSITION_UID:str
+    APPLICATION_UID:str
+
+customized_env = Customized(
+    DEPLOYMENT_PLATFORM_HOST=os.environ.get('DEPLOYMENT_PLATFORM_HOST'),
+    SELF_CHECK_FUNCTION=os.environ.get('SELF_CHECK_FUNCTION'),
+    DEPLOYMENT_PLATFORM_VERSION=os.environ.get('DEPLOYMENT_PLATFORM_VERSION'),
+    POSITION_UID=os.environ.get('POSITION_UID'),
+    APPLICATION_UID=os.environ.get('APPLICATION_UID')
+)
+    

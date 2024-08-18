@@ -19,5 +19,4 @@ from main.utils.env_loader import default_env
 
 urlpatterns = [
     path(f'''api/{default_env.API_VERSION}/''', include('main.apps.inference_exe.api.urls')),
-    # path('admin/', admin.site.urls),
 ]
