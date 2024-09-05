@@ -1,0 +1,5 @@
+-r base.txt
+# Add your custom dependencies below
+# Example:
+# numpy==1.24.3
+# tensorflow==2.13.1
