@@ -7,6 +7,7 @@ from django.views.decorators.http import require_POST
 from main.utils.logger import log_trigger, log_writer
 from main.apps.inference_exe.services.inference import InferenceService
 
+
 @require_POST
 @log_trigger("INFO")
 def get_inference_result(request):
@@ -14,7 +15,7 @@ def get_inference_result(request):
     Processes an inference request by extracting the necessary information from the POST request and
     publishing both raw data and the inference result to Kafka topics. This function is responsible for
     generating new inference result based on the provided input value.
-    
+
     REQUEST Format : 
     {
         application_uid: "string" , // provided by Inference Host Manager 
@@ -23,7 +24,7 @@ def get_inference_result(request):
         inference_client_name:  "string" , // provided by Inference Host Manager
         value: <array, dictionary, int, float, nparray> // self defined
     }
-    
+
     RESPONSE Format: 
     {
         "status": "string" , // self define

@@ -4,6 +4,7 @@ Utils to help call requests api
 import requests
 from main.utils.env_loader import default_env
 
+
 def call_api(module_name, actor_name, function_name, payload):
     """
     Sends a POST request to a specified module's API endpoint.
@@ -36,7 +37,6 @@ def call_api(module_name, actor_name, function_name, payload):
     module_env = globals().get(f"{module_name}_env")
     if not module_env:
         raise ValueError(f"Environment for app {module_env} not found")
-
 
     url = f"""http://{getattr(module_env, f'{module_name.upper()}_HOST_IP')}:""" \
           f"""{getattr(module_env, f'{module_name.upper()}_PORT')}/""" \

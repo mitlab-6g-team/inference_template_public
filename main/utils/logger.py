@@ -56,7 +56,8 @@ def log_trigger(log_level: str):
         def wrapper(*args, **kwargs):
             ensure_log_folder_exists()
             log_file_name = f"""{datetime.now().strftime('%Y-%m-%d')}_log.txt"""
-            log_file_path = os.path.join(default_env.LOGS_FOLDER_PATH, log_file_name)
+            log_file_path = os.path.join(
+                default_env.LOGS_FOLDER_PATH, log_file_name)
 
             log_content = generate_log_content(log_level, func, args)
 

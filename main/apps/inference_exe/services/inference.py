@@ -4,6 +4,7 @@ from main.utils.logger import log_trigger, log_writer
 # Model Basic Functions
 class Model():
     "Inference Functions"
+
     def __init__(self, model_path):
         "the function to load model."
         self.model = load_model(model_path)
@@ -26,7 +27,7 @@ class InferenceService():
 
     @staticmethod
     def input_data_transform(input_data):
-        #data processing here
+        # data processing here
         transformed_data = input_data
         return transformed_data
 
@@ -38,5 +39,6 @@ class InferenceService():
             return {"status": "success", "value": str(inference_result.tolist())}
 
         except Exception as e:
-            log_writer(log_level='ERROR', func=InferenceService.inference, message=str(e))
+            log_writer(log_level='ERROR',
+                       func=InferenceService.inference, message=str(e))
             return {"status": "error", "message": str(e)}

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'main.apps.inference_exe.apps.InferenceExeConfig',
 ]
 
-# if eval(customized_env.SELF_CHECK_FUNCTION): 
+# if eval(customized_env.SELF_CHECK_FUNCTION):
 #     INSTALLED_APPS.append('main.apps.inference_exe.apps.InferenceExeConfig')
 
 MIDDLEWARE = [
