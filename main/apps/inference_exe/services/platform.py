@@ -1,7 +1,10 @@
-import requests
+import requests, os
 from main.utils.env_loader import customized_env
 
 def update_position_status(inference_result):
+    
+    POSITION_UID = os.environ.get('POSITION_UID'),
+    APPLICATION_UID = os.environ.get('APPLICATION_UID')
     
     if inference_result == "success":
         status="InService"
@@ -9,8 +12,8 @@ def update_position_status(inference_result):
         status="OutofService"
     
     payload={
-        "application_uid": customized_env.APPLICATION_UID,
-        "position_uid": customized_env.POSITION_UID,
+        "application_uid": APPLICATION_UID,
+        "position_uid": POSITION_UID,
         "status": status
     }
     url = f"http://{customized_env.DEPLOYMENT_PLATFORM_HOST}/api/{customized_env.DEPLOYMENT_PLATFORM_VERSION}/abstract_metadata/PositionMetadataWriter/update"  
