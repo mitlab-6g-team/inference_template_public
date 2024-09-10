@@ -14,7 +14,6 @@ class Default:
         load default env
     """
     LOGS_FOLDER_PATH: str
-    SECRET_KEY: str
     DJANGO_SETTINGS_MODULE: str
     DEBUG: bool
     ALLOWED_HOSTS: str
@@ -25,7 +24,6 @@ class Default:
 
 default_env = Default(
     LOGS_FOLDER_PATH=os.environ.get('LOGS_FOLDER_PATH'),
-    SECRET_KEY=os.environ.get('SECRET_KEY'),
     DJANGO_SETTINGS_MODULE=os.environ.get('DJANGO_SETTINGS_MODULE'),
     DEBUG=os.environ.get('DEBUG'),
     ALLOWED_HOSTS=os.environ.get('ALLOWED_HOSTS'),
