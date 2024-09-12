@@ -1,20 +1,22 @@
 from main.utils.env_loader import default_env
 from main.utils.logger import log_trigger, log_writer
+import tensorflow as tf
+import numpy as np
 
-# Model Basic Functions
+
 class Model():
     "Inference Functions"
 
     def __init__(self, model_path):
         "the function to load model."
-        self.model = load_model(model_path)
+        self.model = tf.keras.models.load_model(model_path)
 
     def inference(self, input_data):
         "the function to do inference."
         result = self.model.predict(input_data)
         return result
 
-# Called by Actor
+
 class InferenceService():
     model = None
 
@@ -28,7 +30,13 @@ class InferenceService():
     @staticmethod
     def input_data_transform(input_data):
         # data processing here
-        transformed_data = input_data
+        input_data = np.array(input_data)
+
+        if input_data.shape != (1, 100, 3):
+            raise ValueError(
+                f"Expected input shape (1, 100, 3), but got {input_data.shape}")
+
+        transformed_data = input_data.astype(np.float32)
         return transformed_data
 
     @staticmethod
