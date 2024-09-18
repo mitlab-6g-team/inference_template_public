@@ -22,7 +22,7 @@ class InferenceService():
     @staticmethod
     def load_model():
         if InferenceService.model is None:
-            extension = os.environ.get('MODEL_EXTENSION')
+            extension = os.environ.get('FILE_EXTENSION')
             model_path = default_env.MODEL_SAVE_PATH + f"model{extension}"
             InferenceService.model = Model(model_path)
         return InferenceService.model
