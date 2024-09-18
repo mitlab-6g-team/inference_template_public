@@ -19,7 +19,6 @@ class Default:
     ALLOWED_HOSTS: str
     API_ROOT: str
     MODEL_SAVE_PATH: str
-    MODEL_FILE_NAME: str
 
 
 default_env = Default(
@@ -28,8 +27,7 @@ default_env = Default(
     DEBUG=os.environ.get('DEBUG'),
     ALLOWED_HOSTS=os.environ.get('ALLOWED_HOSTS'),
     API_ROOT=os.environ.get('API_ROOT'),
-    MODEL_SAVE_PATH=os.environ.get('MODEL_SAVE_PATH'),
-    MODEL_FILE_NAME=os.environ.get('MODEL_FILE_NAME')
+    MODEL_SAVE_PATH=os.environ.get('MODEL_SAVE_PATH')
 )
 
 
@@ -39,12 +37,10 @@ class Customized:
         load default env - customized
     """
     DEPLOYMENT_PLATFORM_HOST: str
-    SELF_CHECK_FUNCTION: bool
     DEPLOYMENT_PLATFORM_VERSION: str
 
 
 customized_env = Customized(
     DEPLOYMENT_PLATFORM_HOST=os.environ.get('DEPLOYMENT_PLATFORM_HOST'),
-    SELF_CHECK_FUNCTION=os.environ.get('SELF_CHECK_FUNCTION'),
     DEPLOYMENT_PLATFORM_VERSION=os.environ.get('DEPLOYMENT_PLATFORM_VERSION')
 )

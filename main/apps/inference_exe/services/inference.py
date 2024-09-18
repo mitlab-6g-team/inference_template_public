@@ -1,5 +1,6 @@
 from main.utils.env_loader import default_env
 from main.utils.logger import log_trigger, log_writer
+import os
 
 # Model Basic Functions
 class Model():
@@ -21,7 +22,8 @@ class InferenceService():
     @staticmethod
     def load_model():
         if InferenceService.model is None:
-            model_path = default_env.MODEL_SAVE_PATH + default_env.MODEL_FILE_NAME
+            extension = os.environ.get('MODEL_EXTENSION')
+            model_path = default_env.MODEL_SAVE_PATH + f"model{extension}"
             InferenceService.model = Model(model_path)
         return InferenceService.model
 

@@ -3,15 +3,10 @@ import requests
 from main.utils.env_loader import customized_env
 
 
-def update_position_status(inference_result):
+def update_position_status(status):
 
     POSITION_UID = os.environ.get('POSITION_UID'),
     APPLICATION_UID = os.environ.get('APPLICATION_UID')
-
-    if inference_result == "success":
-        status = "InService"
-    else:
-        status = "OutofService"
 
     payload = {
         "application_uid": APPLICATION_UID,
