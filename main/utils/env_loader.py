@@ -36,11 +36,9 @@ class Customized:
     """
         load default env - customized
     """
-    DEPLOYMENT_PLATFORM_HOST: str
     DEPLOYMENT_PLATFORM_VERSION: str
 
 
 customized_env = Customized(
-    DEPLOYMENT_PLATFORM_HOST=os.environ.get('DEPLOYMENT_PLATFORM_HOST'),
     DEPLOYMENT_PLATFORM_VERSION=os.environ.get('DEPLOYMENT_PLATFORM_VERSION')
 )
