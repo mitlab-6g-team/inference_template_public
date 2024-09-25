@@ -2,6 +2,7 @@ from main.utils.env_loader import default_env
 from main.utils.logger import log_trigger, log_writer
 import tensorflow as tf
 import numpy as np
+import os
 
 
 class Model():
