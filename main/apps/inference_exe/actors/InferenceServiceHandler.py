@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from main.utils.logger import log_trigger, log_writer
 from main.apps.inference_exe.services.inference import InferenceService
+from main.apps.inference_exe.services.platform import upload_position_data
 
 
 @require_POST
@@ -33,12 +34,24 @@ def get_inference_result(request):
     """
 
     try:
-        # convert data format from json to dictionary
+         # convert data format from json to dictionary
         request_data = json.loads(request.body.decode('utf-8'))
+        # upload raw_data to agent kafka
+        upload_position_data(
+            "raw_data", 
+            request_data['packet_uid'], 
+            request_data['inference_client_name'], 
+            request_data['value'])
         # generate inference
         inference_result = InferenceService.inference(request_data['value'])
-
+        
         if inference_result['status'] == 'success':
+            # upload inference_result to agent kafka
+            upload_position_data(
+                "inference_result", 
+                request_data['packet_uid'], 
+                request_data['inference_client_name'], 
+                inference_result)
             return JsonResponse(inference_result, status=200)
         else:
             return JsonResponse(inference_result, status=422)

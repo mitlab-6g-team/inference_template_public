@@ -29,16 +29,3 @@ default_env = Default(
     API_ROOT=os.environ.get('API_ROOT'),
     MODEL_SAVE_PATH=os.environ.get('MODEL_SAVE_PATH')
 )
-
-
-@dataclass
-class Customized:
-    """
-        load default env - customized
-    """
-    DEPLOYMENT_PLATFORM_VERSION: str
-
-
-customized_env = Customized(
-    DEPLOYMENT_PLATFORM_VERSION=os.environ.get('DEPLOYMENT_PLATFORM_VERSION')
-)
